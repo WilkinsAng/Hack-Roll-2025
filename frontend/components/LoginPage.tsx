@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {
         } finally {
             setLoading(false);
         }
-        navigation.goBack();
+        navigation.navigate("Home");
     }
 
     const signUpWithEmailAndPassword  = async () => {
