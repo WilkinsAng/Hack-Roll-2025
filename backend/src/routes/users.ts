@@ -33,7 +33,7 @@ router.post('/users/:id', async (req: Request, res: Response) => {
 
 // Get all users
 router.get('/users', async (_req: Request, res: Response) => {
-    const { data, error } = await supabase.from('trips').select('*');
+    const { data, error } = await supabase.from('users').select('*');
 
     if (error) {
         res.status(400).json({ error: error.message });
