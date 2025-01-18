@@ -28,7 +28,7 @@ const OnboardingPage: React.FC = () => {
             return
         }
         try {
-            // await axios.post("backendapi", {name, email: user.email})
+            await axios.post("backendapi", {name, email: user.email})
             // Save name locally on system
             await AsyncStorage.setItem("username", name);
 
@@ -37,7 +37,6 @@ const OnboardingPage: React.FC = () => {
         } catch (error) {
             Alert.alert("Error", "An error occurred.");
             console.error(error);
-            navigation.goBack();
         }
     }
     return (
