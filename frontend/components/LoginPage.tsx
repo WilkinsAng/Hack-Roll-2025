@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
     const signUpWithEmailAndPassword  = async () => {
         setLoading(true)
         const {
-            data: { session },
+            data: { user, session },
             error,
         } = await supabase.auth.signUp({
             email: email,
@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
         if (!session) Alert.alert('Please check your inbox for email verification!')
 
         setLoading(false);
-        navigation.navigate("Onboarding");
+        navigation.navigate("Onboarding", {id: user!.id, email: email});
     }
 
     return (

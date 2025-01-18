@@ -19,7 +19,10 @@ export type RootStackParamsList = {
     Splash: undefined,
     Home: undefined
     Login: undefined
-    Onboarding: undefined
+    Onboarding: {
+        id: string
+        email: string
+    }
 }
 
 export default function Index() {
