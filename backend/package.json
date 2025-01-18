@@ -1,11 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "ts-node-dev src/index.ts",
-    "build": "tsc"
+    "start": "node_modules/.bin/ts-node src/index.ts",
+    "dev": "node_modules/.bin/ts-node-dev src/index.ts",
+    "build": "node_modules/.bin/tsc"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tslib": "^2.8.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
 }
