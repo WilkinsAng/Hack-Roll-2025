@@ -43,4 +43,17 @@ router.get('/trips', async (_req: Request, res: Response) => {
     res.status(200).json(data);
 });
 
+// Delete a specific trip
+router.delete('/trips', async (req : Request, res : Response) => {
+    const { id } = req.body;
+    const {data, error} = await supabase.from('trips').delete().eq('id', id);
+
+    if (error) {
+        res.status(400).json({ error: error.message });
+        return
+    }
+
+    res.status(200).json(data);
+})
+
 export default router;

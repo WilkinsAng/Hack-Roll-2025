@@ -20,10 +20,10 @@ router.post('/trips/expenses', async (req: Request, res: Response) => {
 });
 
 // Get a specific expense for a trip
-router.get('/trips/expenses/:id', async (req: Request, res: Response) => {
+router.get('/expenses/:id', async (req: Request, res: Response) => {
     const { expenseId } = req.params;
 
-    const { data, error } = await supabase.from('expenses').select('*').eq('trip_id', expenseId);
+    const { data, error } = await supabase.from('expenses').select('*').eq('id', expenseId);
 
     if (error) {
         res.status(400).json({ error: error.message });
@@ -34,8 +34,8 @@ router.get('/trips/expenses/:id', async (req: Request, res: Response) => {
 });
 
 // Get expenses for a trip
-router.get('/trips/:id/expenses', async (req: Request, res: Response) => {
-    const { tripId } = req.params;
+router.get('/expenses', async (req: Request, res: Response) => {
+    const { tripId } = req.body;
 
     const { data, error } = await supabase.from('expenses').select('*').eq('trip_id', tripId);
 

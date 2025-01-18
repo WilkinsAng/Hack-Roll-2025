@@ -18,10 +18,10 @@ router.post('/users', async (req: Request, res: Response) => {
 });
 
 // Get a specific user
-router.post('/users/', async (req: Request, res: Response) => {
-    const { email } = req.body;
+router.get('/users/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-    const { data, error } = await supabase.from('users').select('*').eq("email", email);
+    const { data, error } = await supabase.from('users').select('*').eq("id", id);
 
     if (error) {
         res.status(400).json({ error: error.message });
@@ -34,6 +34,20 @@ router.post('/users/', async (req: Request, res: Response) => {
 // Get all users
 router.get('/users', async (_req: Request, res: Response) => {
     const { data, error } = await supabase.from('users').select('*');
+
+    if (error) {
+        res.status(400).json({ error: error.message });
+        return
+    }
+
+    res.status(200).json(data);
+});
+
+// Delete a specific user
+router.delete('/users', async (req: Request, res: Response) => {
+    const { id } = req.body;
+
+    const { data, error } = await supabase.from('users').delete().eq('id', id);
 
     if (error) {
         res.status(400).json({ error: error.message });
