@@ -5,9 +5,9 @@ const router = Router();
 
 // Add a new user
 router.post('/users', async (req: Request, res: Response) => {
-    const { name, email } = req.body;
+    const { id, name, email } = req.body;
 
-    const { data, error } = await supabase.from('users').insert([{ name, email }]);
+    const { data, error } = await supabase.from('users').insert([{ id, name, email }]);
 
     if (error) {
         res.status(400).json({ error: error.message });
@@ -18,10 +18,10 @@ router.post('/users', async (req: Request, res: Response) => {
 });
 
 // Get a specific user
-router.post('/users/:id', async (req: Request, res: Response) => {
-    const { userId } = req.params;
+router.post('/users/', async (req: Request, res: Response) => {
+    const { email } = req.body;
 
-    const { data, error } = await supabase.from('users').select('*').eq("id", userId);
+    const { data, error } = await supabase.from('users').select('*').eq("email", email);
 
     if (error) {
         res.status(400).json({ error: error.message });

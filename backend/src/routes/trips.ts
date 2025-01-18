@@ -18,7 +18,7 @@ router.post('/trips', async (req: Request, res: Response) => {
 });
 
 // Get a specific trip
-router.post('/trips/:id', async (req: Request, res: Response) => {
+router.get('/trips/:id', async (req: Request, res: Response) => {
     const { tripId } = req.params;
 
     const { data, error } = await supabase.from('trips').select('*').eq("id", tripId);
