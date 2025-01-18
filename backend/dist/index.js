@@ -12,7 +12,6 @@ const expenses_1 = __importDefault(require("./routes/expenses"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
-app.use(express_1.default.json());
 // Routes
 app.use('/api/auth', auth_1.default);
 app.use('/api', trips_1.default);
