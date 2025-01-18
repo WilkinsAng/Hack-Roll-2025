@@ -3,25 +3,11 @@ import { supabase } from '../supabase';
 
 const router = Router();
 
-// Add a new trip
-router.post('/trips', async (req: Request, res: Response) => {
-    const { userId, name, startDate, endDate } = req.body;
+// Add a new user
+router.post('/users', async (req: Request, res: Response) => {
+    const { name, email } = req.body;
 
-    const { data, error } = await supabase.from('trips').insert([{  userId, name, startDate, endDate }]);
-
-    if (error) {
-        res.status(400).json({ error: error.message });
-        return
-    }
-
-    res.status(200).json(data);
-});
-
-// Get a specific trip
-router.post('/trips/:id', async (req: Request, res: Response) => {
-    const { tripId } = req.params;
-
-    const { data, error } = await supabase.from('trips').select('*').eq("id", tripId);
+    const { data, error } = await supabase.from('users').insert([{ name, email }]);
 
     if (error) {
         res.status(400).json({ error: error.message });
@@ -31,8 +17,22 @@ router.post('/trips/:id', async (req: Request, res: Response) => {
     res.status(200).json(data);
 });
 
-// Get all trips
-router.get('/trips', async (_req: Request, res: Response) => {
+// Get a specific user
+router.post('/users/:id', async (req: Request, res: Response) => {
+    const { userId } = req.params;
+
+    const { data, error } = await supabase.from('users').select('*').eq("id", userId);
+
+    if (error) {
+        res.status(400).json({ error: error.message });
+        return
+    }
+
+    res.status(200).json(data);
+});
+
+// Get all users
+router.get('/users', async (_req: Request, res: Response) => {
     const { data, error } = await supabase.from('trips').select('*');
 
     if (error) {
