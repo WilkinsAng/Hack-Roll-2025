@@ -3,7 +3,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamsList} from "@/app";
 import {useNavigation} from "@react-navigation/native";
 import {StyleSheet, View, Alert, TextInput, Button} from "react-native";
-import {supabase} from "../../backend/src/supabase";
+import {supabase} from "../supabase";
 
 type LoginPageNavigationProps = StackNavigationProp<RootStackParamsList, "Login">
 
@@ -24,8 +24,9 @@ const LoginPage: React.FC = () => {
 
         if (error) Alert.alert(error.message);
         setLoading(false);
+        navigation.goBack();
     }
-  const signUpWithEmailAndPassword  = async () => {
+    const signUpWithEmailAndPassword  = async () => {
         setLoading(true)
         const {
             data: { session },
@@ -37,7 +38,9 @@ const LoginPage: React.FC = () => {
 
         if (error) Alert.alert(error.message)
         if (!session) Alert.alert('Please check your inbox for email verification!')
-        setLoading(false)
+
+        setLoading(false);
+        navigation.navigate("Onboarding");
     }
 
     return (
