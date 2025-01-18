@@ -24,7 +24,8 @@ const LoginPage: React.FC = () => {
 
         if (error) Alert.alert(error.message);
         setLoading(false);
-        navigation.goBack();
+        navigation.navigate("Onboarding");
+        // navigation.goBack();
     }
     const signUpWithEmailAndPassword  = async () => {
         setLoading(true)
