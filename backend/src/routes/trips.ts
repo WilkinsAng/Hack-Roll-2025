@@ -17,18 +17,27 @@ router.post('/trips', async (req: Request, res: Response) => {
     res.status(200).json(data);
 });
 
-// Get a specific trip
+// Get trips from a specific user
 router.get('/trips/:id', async (req: Request, res: Response) => {
-    const { tripId } = req.params;
+    const { userId } = req.params;
 
-    const { data, error } = await supabase.from('trips').select('*').eq("id", tripId);
+    const { data, error } = await supabase.from('trip_members').select('trip_id').eq("user_id", userId);
 
     if (error) {
         res.status(400).json({ error: error.message });
         return
     }
 
-    res.status(200).json(data);
+    const tripIds = data.map((membership) => membership.trip_id);
+
+    const {data: result, error: err}  = await supabase.from('trips').select('*').in('id', tripIds);
+
+    if (err) {
+        res.status(400).json({ error: err.message });
+        return
+    }
+
+    res.status(200).json(result);
 });
 
 // Get all trips
