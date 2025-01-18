@@ -1,9 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.ts",
+    "start": "node src/index.js",
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc"
   },
