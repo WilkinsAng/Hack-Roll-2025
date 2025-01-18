@@ -1,9 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node src/index.js",
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc"
   },
@@ -22,7 +22,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/node": "^22.10.7",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tslib": "^2.8.1",
     "typescript": "^5.7.3"
   }
 }
