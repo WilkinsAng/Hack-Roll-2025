@@ -4,6 +4,8 @@ import {RootStackParamsList} from "@/app";
 import {useNavigation} from "@react-navigation/native";
 import {StyleSheet, View, Alert, TextInput, Button} from "react-native";
 import {supabase} from "../supabase";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type LoginPageNavigationProps = StackNavigationProp<RootStackParamsList, "Login">
 
@@ -22,10 +24,25 @@ const LoginPage: React.FC = () => {
             password: password,
         });
 
-        if (error) Alert.alert(error.message);
-        setLoading(false);
-        navigation.goBack();
+        if (error) {
+            Alert.alert(error.message);
+            setLoading(false);
+            return
+        }
+
+        try {
+            const response = await axios.get("");
+            const userProfile = response.data;
+            await AsyncStorage.setItem('username', userProfile.name);
+        } catch (error: any) {
+            Alert.alert(error.message);
+            return
+        } finally {
+            setLoading(false);
+        }
+        navigation.navigate("Home");
     }
+
     const signUpWithEmailAndPassword  = async () => {
         setLoading(true)
         const {
@@ -36,7 +53,11 @@ const LoginPage: React.FC = () => {
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
+        if (error) {
+            Alert.alert(error.message)
+            setLoading(false);
+            return
+        }
         if (!session) Alert.alert('Please check your inbox for email verification!')
 
         setLoading(false);
