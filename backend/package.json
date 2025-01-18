@@ -1,9 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "ts-node src/index.ts",
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc"
   },
@@ -26,6 +26,7 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tslib": "^2.8.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
 }
