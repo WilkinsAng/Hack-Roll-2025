@@ -4,6 +4,7 @@ import HomeScreen from "../components/HomeScreen"
 import LoginPage from "../components/LoginPage"
 import OnboardingPage from "../components/OnboardingPage"
 import SplashScreen from "@/components/SplashScreen";
+import AddTripForm from "@/components/AddTripForm";
 
 const Stack = createNativeStackNavigator({
     initialRouteName: "Splash",
@@ -11,7 +12,8 @@ const Stack = createNativeStackNavigator({
         Splash: SplashScreen,
         Home: HomeScreen,
         Login: LoginPage,
-        Onboarding: OnboardingPage
+        Onboarding: OnboardingPage,
+        AddTrip: AddTripForm
     }}
 );
 
@@ -23,6 +25,7 @@ export type RootStackParamsList = {
         id: string
         email: string
     }
+    AddTrip: undefined
 }
 
 export default function Index() {
@@ -41,6 +44,10 @@ export default function Index() {
             name="Onboarding"
             component={OnboardingPage}
             options={{title: "Onboarding"}}/>
+            <Stack.Screen
+                name="AddTrip"
+                component={AddTripForm}
+                options={{title: "Adding Trips"}}/>
         </Stack.Navigator>
     );
 }

@@ -5,7 +5,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamsList} from "@/app";
 import axios from "axios";
-import {supabase} from "@/supabase";
 import {Button} from "@react-navigation/elements";
 
 
@@ -25,7 +24,7 @@ const OnboardingPage: React.FC = () => {
         }
 
         try {
-            await axios.post("https://hack-roll-2025.onrender.com/api/users", {id: id, name: name, email: email})
+            await axios.post(`https://hack-roll-2025.onrender.com/api/users`, {id: id, name: name, email: email})
             // Save name locally on system
             await AsyncStorage.setItem("username", name);
 
