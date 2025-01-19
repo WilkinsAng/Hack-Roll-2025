@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {View, Text, StyleSheet, ScrollView, Image, Alert, ActivityIndicator, FlatList} from "react-native";
-import {RootStackParamsList} from "../app/index";
+import {RootStackParamsList} from "../app/app";
 import {Button} from "@react-navigation/elements";
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import {supabase} from "@/supabase";

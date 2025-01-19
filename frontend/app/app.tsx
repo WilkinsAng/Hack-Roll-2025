@@ -28,7 +28,7 @@ export type RootStackParamsList = {
     AddTrip: undefined
 }
 
-export default function Index() {
+export default function app() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Splash" component={SplashScreen} />

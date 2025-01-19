@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamsList} from "@/app";
+import {RootStackParamsList} from "@/app/app";
 import {useNavigation} from "@react-navigation/native";
 import {StyleSheet, View, Alert, TextInput, Button} from "react-native";
 import {supabase} from "../supabase";

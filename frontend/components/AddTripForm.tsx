@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamsList} from "@/app";
+import {RootStackParamsList} from "@/app/app";
 import {View} from "react-native";
 
 

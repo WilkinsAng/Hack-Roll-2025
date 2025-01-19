@@ -3,7 +3,7 @@ import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {Alert, StyleSheet, TextInput, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamsList} from "@/app";
+import {RootStackParamsList} from "@/app/app";
 import axios from "axios";
 import {Button} from "@react-navigation/elements";
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {supabase} from "@/supabase";
 import {StackNavigationProp} from "@react-navigation/stack";
-import {RootStackParamsList} from "@/app";
+import {RootStackParamsList} from "@/app/app";
 import {useNavigation} from "@react-navigation/native";
 import {ActivityIndicator, Alert, Image} from "react-native";
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
