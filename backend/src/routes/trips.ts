@@ -19,9 +19,9 @@ router.post('/trips', async (req: Request, res: Response) => {
 
 // Get trips from a specific user
 router.get('/trips/:id', async (req: Request, res: Response) => {
-    const { userId } = req.params;
+    const { id } = req.params;
 
-    const { data, error } = await supabase.from('trip_members').select('trip_id').eq("user_id", userId);
+    const { data, error } = await supabase.from('trip_members').select('trip_id').eq("user_id", id);
 
     if (error) {
         res.status(400).json({ error: error.message });
