@@ -4,7 +4,6 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {View, Text, StyleSheet, ScrollView, Image, Alert, ActivityIndicator, FlatList} from "react-native";
 import {RootStackParamsList} from "../app/index";
 import {Button} from "@react-navigation/elements";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import {supabase} from "@/supabase";
 import axios from "axios";
@@ -12,6 +11,7 @@ import {Timestamp} from "react-native-reanimated/lib/typescript/commonTypes";
 
 
 type HomeScreenNavigationProps = StackNavigationProp<RootStackParamsList, "Home">
+
 interface Trip {
     id: number,
     name: string,
@@ -19,6 +19,7 @@ interface Trip {
     endDate: Date,
     createdAt: Timestamp,
 }
+
 const HomeScreen: React.FC = () => {
     const navigation = useNavigation<HomeScreenNavigationProps>();
 
@@ -29,12 +30,8 @@ const HomeScreen: React.FC = () => {
 
     useEffect( () => {
         setLoading(true);
-        const fetchName = async () => {
-            const storedName = await AsyncStorage.getItem("name");
-            setName(storedName);
-        };
 
-        const fetchTrips = async () => {
+        const fetchNameTrips = async () => {
             try {
                 const {data: {user} } = await supabase.auth.getUser();
                 if(!user) {
@@ -42,14 +39,15 @@ const HomeScreen: React.FC = () => {
                     return
                 }
                 setIsAuthenticated(true);
-                const response = await axios.get("", {params: user.email});
-                setTrips(response.data);
+                const response = await axios.get(`https://hack-roll-2025.onrender.com/api/users/${user.id}`);
+                setName(response.data[0].name);
+                const tripResponse = await axios.get(`https://hack-roll-2025.onrender.com/api/trips/${user.id}`);
+                setTrips(tripResponse.data);
             } catch (error:any) {
                 Alert.alert(error.message);
             }
         }
-        fetchName();
-        fetchTrips();
+        fetchNameTrips();
         setLoading(false);
     }, []);
 
@@ -77,24 +75,24 @@ const HomeScreen: React.FC = () => {
             <SafeAreaView>
                 <ScrollView style={styles.container}>
                     <Image source={require("../assets/images/logo.png")} />
-                    <Text style={styles.header}>Welcome to Binary Balance {name || "How are you here?"}!</Text>
-
+                    <Text style={styles.header}>Welcome to Binary Balance, {name}!</Text>
 
                     {/*Trip Section*/}
                     <View style={styles.tripsBox}>
                         {!isAuthenticated ?
                             <View>
-                                <Button onPress={() => navigation.navigate('Login')}>Login</Button>
                                 <Text>Log in to start being an accountable friend!</Text>
                             </View>:
-                            <FlatList data={trips} renderItem={renderTrip}/>}
+                            <View style={styles.tripsBox}>
+                                <Button onPress={() => navigation.navigate("AddTrip")}>Add Trip</Button>
+                            </View>   }
                     </View>
                 </ScrollView>
             </SafeAreaView>
         </SafeAreaProvider>
 
 
-
+//<FlatList data={trips} renderItem={renderTrip}/>}
     )}
 
 const styles = StyleSheet.create( {

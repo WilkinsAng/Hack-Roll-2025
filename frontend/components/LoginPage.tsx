@@ -5,7 +5,6 @@ import {useNavigation} from "@react-navigation/native";
 import {StyleSheet, View, Alert, TextInput, Button} from "react-native";
 import {supabase} from "../supabase";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type LoginPageNavigationProps = StackNavigationProp<RootStackParamsList, "Login">
 
@@ -19,7 +18,7 @@ const LoginPage: React.FC = () => {
 
     const loginWithEmailAndPassword = async () => {
         setLoading(true);
-        const {error} = await supabase.auth.signInWithPassword({
+        const {data, error} = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
         });
@@ -30,23 +29,14 @@ const LoginPage: React.FC = () => {
             return
         }
 
-        try {
-            const response = await axios.get("");
-            const userProfile = response.data;
-            await AsyncStorage.setItem('username', userProfile.name);
-        } catch (error: any) {
-            Alert.alert(error.message);
-            return
-        } finally {
-            setLoading(false);
-        }
+        setLoading(false);
         navigation.navigate("Home");
     }
 
     const signUpWithEmailAndPassword  = async () => {
         setLoading(true)
         const {
-            data: { session },
+            data: { user, session },
             error,
         } = await supabase.auth.signUp({
             email: email,
@@ -61,7 +51,7 @@ const LoginPage: React.FC = () => {
         if (!session) Alert.alert('Please check your inbox for email verification!')
 
         setLoading(false);
-        navigation.navigate("Onboarding");
+        navigation.navigate("Onboarding", {id: user!.id, email: email});
     }
 
     return (

@@ -1,18 +1,19 @@
 import React, {useState} from "react";
-import {useNavigation} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {Alert, StyleSheet, TextInput, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RootStackParamsList} from "@/app";
 import axios from "axios";
-import {supabase} from "@/supabase";
 import {Button} from "@react-navigation/elements";
 
 
 type OnboardingPageNavigationProps = StackNavigationProp<RootStackParamsList, "Onboarding">;
-
+type OnboardingPageRouteProps = RouteProp<RootStackParamsList, "Onboarding">;
 const OnboardingPage: React.FC = () => {
     const navigation = useNavigation<OnboardingPageNavigationProps>();
+    const route = useRoute<OnboardingPageRouteProps>();
+    const {id, email} = route.params;
 
     const [name, setName] = useState("");
 
@@ -22,13 +23,8 @@ const OnboardingPage: React.FC = () => {
             return
         }
 
-        const {data: {user} } = await supabase.auth.getUser();
-        if(!user) {
-            Alert.alert("You must log in!", "How did you even get here?");
-            return
-        }
         try {
-            await axios.post("backendapi", {name, email: user.email})
+            await axios.post(`https://hack-roll-2025.onrender.com/api/users`, {id: id, name: name, email: email})
             // Save name locally on system
             await AsyncStorage.setItem("username", name);
 
